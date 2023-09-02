@@ -3,6 +3,7 @@
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
 const dataPromise = d3.json(url);
 
+// Create data promise
 console.log("Data Promise: ", dataPromise);
 
 // // Fetch the JSON data and console log it
@@ -22,23 +23,25 @@ d3.json(url).then(function (data) {
     metaData(meta_data[0]);
     hbarChart(samples[0]);
     bubbleChart(samples[0]);
+    gauge(samples[0]);
 });
+
 
 function optionChanged(value) {
     const selectedId = samples.find((item) => item.id === value);
     const demographicInfo = meta_data.find((item) => item.id == value);
 
-    // Insterting Demographic Data
+    // Insert the demographic Data
     metaData(demographicInfo);
 
-    // Bar Chart
+    // Insert info into Bar Chart
     hbarChart(selectedId);
 
-    // Bubble Chart
+    // Insert info into bubble chart
     bubbleChart(selectedId);
 
-    // Gauge Chart
-    gaugeChart(selectedId);
+    // Insert info into Gauge Chart
+    gauge(selectedId);
 
 }
 
@@ -102,7 +105,7 @@ function bubbleChart(selectedId) {
         mode: "markers",
         marker: {
             color: color,
-            colorscale: "Pastel",
+            colorscale: "Picnic",
             size: marker_size,
         },
         type: "scatter",
@@ -117,20 +120,21 @@ function bubbleChart(selectedId) {
     Plotly.newPlot("bubble", chart, layout);
 }
 
-// Make the gauge chart 
+// Create the gauge chart 
 function gauge(selectedId) {
   // Fetch the JSON data and console log it 
   d3.json(url).then((data) => {
-      // An array of metadata objects
-      let metadata = data.metadata;
-      
+      // Use the metadata from the data fetch
+      let metadata = data.metadata; 
+      console.log("l", metadata)
+      console.log("f", selectedId.id)
       // Filter data where id = selected value after converting their types 
       // (bc meta.id is in integer format and selectValue from is in string format)
-      let filteredData = metadata.filter((meta) => meta.id == selectedValue);
-    
+      let filteredData = metadata.filter((meta) => meta.id == selectedId.id);
+
       // Assign the first object to obj variable
       let obj = filteredData[0]
-
+      console.log(obj)
       // Trace for the data for the gauge chart
       let trace = [{
           domain: { x: [0, 1], y: [0, 1] },
@@ -160,58 +164,4 @@ function gauge(selectedId) {
        Plotly.newPlot("gauge", trace);
   });
 }
-// START OF LA CODE
-// dataPromise.then(function(incomingData) {
-//   // Use incomingData to populate the dropdown
-//   const dropdown = d3.select("#selDataset");
-//   incomingData.names.forEach(function(name) {
-//     dropdown.append("option").attr("value", name).text(name);
-//   });
 
-//   // Define the function to handle dropdown changes
-//   function optionChanged(selectedValue) {
-//     // Implement what should happen when the dropdown changes
-//     console.log("Selected Value: ", selectedValue);
-
-//     // You can update charts or perform other actions here
-//   }
-
-//   // Attach the event listener to the dropdown
-//   dropdown.on("change", function() {
-//     const selectedValue = d3.select(this).property("value");
-//     optionChanged(selectedValue);
-//   });
-
-//   // Fetch the JSON data and console log it
-//   console.log("Data Loaded: ", incomingData);
-// });
-        // // Create array to hold all names (all ID names)
-        // var names = data.samples.map(x=>x.id)
-        // // Append an option in the dropdown
-        // names.forEach(function(name) {
-        //     d3.select('#selDataset')
-        //         .append('option')
-        //         .text(name)
-        //     });
-        
-
-
-
-// // Create barchart using the Top 10 OTUs
-// function CreateHBar(x,y,text) {
-//     var data = [{
-//         type: 'bar',
-//         x: x,
-//         y: y,
-//         text: text,
-//         orientation: 'h'
-//     }];
-
-//     var layout = {
-//         title: "Top 10 OTU's"
-//     };
-
-//     Plotly.newPlot('bar', data. layout);
-
-
-// };
