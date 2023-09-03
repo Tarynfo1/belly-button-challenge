@@ -72,6 +72,9 @@ function hbarChart(selectedId) {
         y: y_axis,
         text: text,
         type: "bar",
+        marker: {
+          color: "rgb(125,182,237)"
+        },
         orientation: "h",
     };
 
@@ -143,19 +146,19 @@ function gauge(selectedId) {
           type: "indicator", 
           mode: "gauge+number",
           gauge: {
-              axis: {range: [null, 10]}, 
-              bar: {color: "rgb(68,166,198)"},
+              axis: {range: [0,10], tickmode: "linear", tick0: 2, dtick: 2}, 
+              bar: {color: "rgba(14, 127, 0, .5)"},
               steps: [
-                  { range: [0, 1], color: "rgb(233,245,248)" },
-                  { range: [1, 2], color: "rgb(218,237,244)" },
-                  { range: [2, 3], color: "rgb(203,230,239)" },
-                  { range: [3, 4], color: "rgb(188,223,235)" },
-                  { range: [4, 5], color: "rgb(173,216,230)" },
-                  { range: [5, 6], color: "rgb(158,209,225)" },
-                  { range: [6, 7], color: "rgb(143,202,221)" },
-                  { range: [7, 8], color: "rgb(128,195,216)" },
-                  { range: [8, 9], color: "rgb(113,187,212)" },
-                  { range: [9, 10], color: "rgb(98,180,207)" }
+                  { range: [0, 1], color: "rgba(255, 255, 255, 0)" },
+                  { range: [1, 2], color: "rgba(232, 226, 202, .5)" },
+                  { range: [2, 3], color: "rgba(210, 206, 145, .5)" },
+                  { range: [3, 4], color: "rgba(202, 209, 95, .5)" },
+                  { range: [4, 5], color: "rgba(184, 205, 68, .5)" },
+                  { range: [5, 6], color: "rgba(170, 202, 42, .5)" },
+                  { range: [6, 7], color: "rgba(142, 178, 35 , .5)" },
+                  { range: [7, 8], color: "rgba(110, 154, 22, .5)" },
+                  { range: [8, 9], color: "rgba(50, 143, 10, 0.5)" },
+                  { range: [9, 10], color: "rgba(14, 127, 0, .5)" }
               ]
           }
       }];
@@ -164,4 +167,3 @@ function gauge(selectedId) {
        Plotly.newPlot("gauge", trace);
   });
 }
-
